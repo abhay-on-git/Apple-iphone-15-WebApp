@@ -4,13 +4,14 @@ import { Suspense } from 'react'
 import IPhone from  './IPhone'
 import Lights from './Lights'
 import * as THREE from 'three'
+import Loder from './Loder'
 
 const ModelView = ({index,groupRef,gsapType,controllRef,setRotationState,size,item}) => {
   return (
     <View 
     index={index}
     id={gsapType}
-    className={`boredr-2 border-red-300 w-full h-full ${index===2} ? 'right-[-100%]:''`}
+    className={`boredr-2 border-red-300 absolute w-full h-full ${index===2 ? 'right-[-100%]':''}`}
     >
       {/* ambient light */}
       <ambientLight intensity={0.3} />
@@ -26,7 +27,7 @@ const ModelView = ({index,groupRef,gsapType,controllRef,setRotationState,size,it
       onEnd={()=>setRotationState(controllRef.current.getAzimuthalAngle())}
       />
       <group ref={groupRef} name={`${index === 1 ? 'small' : 'large'}`} position={[0,0,0]}>
-      <Suspense fallback={<Html><div>Loading...</div></Html>}>
+      <Suspense fallback={<Loder/>}>
          <IPhone scale={index===1 ? [15,15,15] : [17,17,17]} item={item} size={size}/>
       </Suspense>
       </group>
